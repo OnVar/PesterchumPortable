@@ -1,4 +1,4 @@
-from PyQt4 import QtGui, QtCore
+from PyQt4 impor QtGui, QtCore
 import re, ostools
 
 from os import remove
