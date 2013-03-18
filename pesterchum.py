@@ -2595,7 +2595,7 @@ class PesterWindow(MovingWindow):
         self.newConversation("nickServ")
     @QtCore.pyqtSlot()
     def launchHelp(self):
-        QtGui.QDesktopServices.openUrl(QtCore.QUrl("http://nova.xzibition.com/~illuminatedwax/help.html", QtCore.QUrl.TolerantMode))
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl("http://www.mspaforums.com/showthread.php?43922-PESTERCHUM-3-41-Updated-Pesterchum!-New-Thread!/", QtCore.QUrl.TolerantMode))
     @QtCore.pyqtSlot()
     def reportBug(self):
         if hasattr(self, 'bugreportwindow') and self.bugreportwindow:
