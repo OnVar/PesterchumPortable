@@ -323,7 +323,7 @@ class PesterQuirkTypes(QtGui.QDialog):
         self.funclist2.setStyleSheet("color: #000000; background-color: #FFFFFF;")
 
         from parsetools import quirkloader
-        funcs = [q+")" for q in quirkloader.quirks.keys()]
+        funcs = [q+"()" for q in quirkloader.quirks.keys()]
         funcs.sort()
         self.funclist.addItems(funcs)
         self.funclist2.addItems(funcs)
@@ -561,7 +561,7 @@ class PesterQuirkTypes(QtGui.QDialog):
     def reloadQuirkFuncSlot(self):
         from parsetools import reloadQuirkFunctions, quirkloader
         reloadQuirkFunctions()
-        funcs = [q+")" for q in quirkloader.quirks.keys()]
+        funcs = [q+"()" for q in quirkloader.quirks.keys()]
         funcs.sort()
         self.funclist.clear()
         self.funclist.addItems(funcs)
@@ -1717,6 +1717,8 @@ class AboutPesterchum(QtGui.QDialog):
   oakwhiz\n\
   alGore\n\
   Cerxi (binaryCabalist)\n\
+\n\
+Portable Version by:\n  AratnitY (gulgolethTrepidity)\n\
 \n\
 Art by:\n\
   Grimlive (aquaMarinist)\n\
