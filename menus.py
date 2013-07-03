@@ -806,11 +806,11 @@ class PesterChooseProfile(QtGui.QDialog):
         else:
             self.profileBox = None
 
-        """self.defaultcheck = QtGui.QCheckBox(self)
-        self.defaultlabel = QtGui.QLabel("Set This Profile As Default", self)"""
+        #self.defaultcheck = QtGui.QCheckBox(self)
+        #self.defaultlabel = QtGui.QLabel("Set This Profile As Default", self)
         layout_2 = QtGui.QHBoxLayout()
-        layout_2.addWidget(self.defaultlabel)
-        layout_2.addWidget(self.defaultcheck)
+        #layout_2.addWidget(self.defaultlabel)
+        #layout_2.addWidget(self.defaultcheck)
 
         self.ok = QtGui.QPushButton("OK", self)
         self.ok.setDefault(True)
