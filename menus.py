@@ -1718,7 +1718,7 @@ class AboutPesterchum(QtGui.QDialog):
   alGore\n\
   Cerxi (binaryCabalist)\n\
 \n\
-Portable Version by:\n  AratnitY (gulgolethTrepidity)\n\
+Portable Version by:\n  AratnitY (carcinoGenotoxin)\n\
 \n\
 Art by:\n\
   Grimlive (aquaMarinist)\n\
