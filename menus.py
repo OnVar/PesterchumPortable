@@ -1013,7 +1013,7 @@ class PesterOptions(QtGui.QDialog):
 
         self.bandwidthcheck = QtGui.QCheckBox("Low Bandwidth", self)
         if self.config.lowBandwidth():
-            self.bandwidthcheck.setChecked(True)
+            self.bandwidthcheck.setChecked(False)
         bandwidthLabel = QtGui.QLabel("(Stops you for receiving the flood of MOODS,\n"
                                       " though stops chumlist from working properly)")
         font = bandwidthLabel.font()
@@ -1091,7 +1091,7 @@ class PesterOptions(QtGui.QDialog):
         if not ostools.isOSXBundle():
             self.animationscheck = QtGui.QCheckBox("Use animated smilies", self)
             if self.config.animations():
-                self.animationscheck.setChecked(True)
+                self.animationscheck.setChecked(False)
             animateLabel = QtGui.QLabel("(Disable if you leave chats open for LOOOONG periods of time)")
             font = animateLabel.font()
             font.setPointSize(8)
@@ -1144,20 +1144,20 @@ class PesterOptions(QtGui.QDialog):
         layout_5.addWidget(self.idleBox)
 
         self.updateBox = QtGui.QComboBox(self)
-        self.updateBox.addItem("Once a Day")
-        self.updateBox.addItem("Once a Week")
-        self.updateBox.addItem("Only on Start")
-        self.updateBox.addItem("Never")
-        check = self.config.checkForUpdates()
-        if check >= 0 and check < self.updateBox.count():
-            self.updateBox.setCurrentIndex(check)
+        #self.updateBox.addItem("Once a Day")
+        #self.updateBox.addItem("Once a Week")
+        #self.updateBox.addItem("Only on Start")
+        #self.updateBox.addItem("Never")
+        #check = self.config.checkForUpdates()
+        #if check >= 0 and check < self.updateBox.count():
+            #self.updateBox.setCurrentIndex(check)
         layout_6 = QtGui.QHBoxLayout()
-        layout_6.addWidget(QtGui.QLabel("Check for\nPesterchum Updates:"))
-        layout_6.addWidget(self.updateBox)
+        #layout_6.addWidget(QtGui.QLabel("Check for\nPesterchum Updates:"))
+        #layout_6.addWidget(self.updateBox)
 
-        if not ostools.isOSXLeopard():
-            self.mspaCheck = QtGui.QCheckBox("Check for MSPA Updates", self)
-            self.mspaCheck.setChecked(self.config.checkMSPA())
+        #if not ostools.isOSXLeopard():
+            #self.mspaCheck = QtGui.QCheckBox("Check for MSPA Updates", self)
+            #self.mspaCheck.setChecked(self.config.checkMSPA())
 
         self.randomscheck = QtGui.QCheckBox("Receive Random Encounters")
         self.randomscheck.setChecked(parent.userprofile.randoms)
@@ -1709,7 +1709,7 @@ class AboutPesterchum(QtGui.QDialog):
         self.mainwindow = parent
         self.setStyleSheet(self.mainwindow.theme["main/defaultwindow/style"])
 
-        self.title = QtGui.QLabel("P3ST3RCHUM V. %s" % (_pcVersion))
+        self.title = QtGui.QLabel("P3ST3RCHUM PORT4BL3 V. %s" % (_pcVersion))
         self.credits = QtGui.QLabel("Programming by:\n\
   illuminatedwax (ghostDunk)\n\
   Kiooeht (evacipatedBox)\n\
