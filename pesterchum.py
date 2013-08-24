@@ -1130,6 +1130,9 @@ class PesterWindow(MovingWindow):
         self.nickServAction = QtGui.QAction(self.theme["main/menus/help/nickserv"], self)
         self.connect(self.nickServAction, QtCore.SIGNAL('triggered()'),
                      self, QtCore.SLOT('loadNickServ()'))
+        self.registerAction = QtGui.QAction(self.theme["main/menus/help/register"], self)
+	    self.connect(self.registerAction, QtCore.SIGNAL('triggered()'),
+		             self, QtCore.SLOT('loadRegister()'))             
         self.chanServAction = QtGui.QAction(self.theme["main/menus/help/chanserv"], self)
         self.connect(self.chanServAction, QtCore.SIGNAL('triggered()'),
                      self, QtCore.SLOT('loadChanServ()'))
@@ -1145,6 +1148,7 @@ class PesterWindow(MovingWindow):
         self.helpmenu.addAction(self.botAction)
         self.helpmenu.addAction(self.chanServAction)
         self.helpmenu.addAction(self.nickServAction)
+        self.helpmenu.addAction(self.registerAction)
         self.helpmenu.addAction(self.aboutAction)
         self.helpmenu.addAction(self.reportBugAction)
 
@@ -1551,6 +1555,7 @@ class PesterWindow(MovingWindow):
         self.botAction.setText(self.theme["main/menus/help/calsprite"])
         self.chanServAction.setText(self.theme["main/menus/help/chanserv"])
         self.nickServAction.setText(self.theme["main/menus/help/nickserv"])
+        self.registerAction.setText(self.theme["main/menus/help/register"])
         self.helpmenu.setTitle(self.theme["main/menus/help/_name"])
 
         # moods
@@ -2594,8 +2599,13 @@ class PesterWindow(MovingWindow):
     def loadNickServ(self):
         self.newConversation("nickServ")
     @QtCore.pyqtSlot()
+    def loadRegister(self):
+        (password, ok) = QtGui.QInputDialog.getText(self, "Register Handle", "Enter the password, a space and then the email \nyou wish to associate with this handle:")
+        if ok:
+            self.sendMessage.emit("REGISTER %s" % (password) , "nickServ")
+    @QtCore.pyqtSlot()
     def launchHelp(self):
-        QtGui.QDesktopServices.openUrl(QtCore.QUrl("http://pesterchum.blog.com/", QtCore.QUrl.TolerantMode))
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl("http://www.mspaforums.com/showthread.php?43922-PESTERCHUM-3-41-Updated-Pesterchum!-New-Thread!/", QtCore.QUrl.TolerantMode))
     @QtCore.pyqtSlot()
     def reportBug(self):
         if hasattr(self, 'bugreportwindow') and self.bugreportwindow:
