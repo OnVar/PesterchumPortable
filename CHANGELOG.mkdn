@@ -22,6 +22,7 @@ CHANGELOG
 * FTP and Magnet links - oakwhiz
 * Userlist search - oakwhiz
 * Chanserv in menus - Cerxi [binaryCabalist]
+* Register handle directly from the menu - AratnitY
 * Bug fixes
     * Don't require pygame (it's kind of optional, you just don't get sound) - Kiooeht [evacipatedBox]
     * Allow add chum dialog to open after adding an existing chum - Kiooeht [evacipatedBox]
