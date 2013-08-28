@@ -18,9 +18,9 @@ Features
 * Turn memo notifications on/off from right-click menu on memos (Idea: lostGash)
 * Use web connection to send offline messages in email-like fashion (Idea: ghostDunk)
 * Use web connection to save profiles (Idea: ghostDunk)
-* Better NickServ registering
+* Better NickServ registering (Done. ~AratnitY)
 * Spectation notices (Idea: lexicalNuance) (probly WONTFIX)
-* Auto-login Nickserv
+* Auto-login Nickserv (Also done ~AratnitY)
 * Make toast notifications only on certain chums
 * Local alisas for chums
 * Don't make new windows be all in your face and shit
