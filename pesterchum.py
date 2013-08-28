@@ -2600,7 +2600,7 @@ class PesterWindow(MovingWindow):
         self.newConversation("nickServ")
     @QtCore.pyqtSlot()
     def loadRegister(self):
-        (password, ok) = QtGui.QInputDialog.getText(self, "Register Handle", "Enter the password, a space and then the email \nyou wish to associate with this handle:")
+        (password, ok) = QtGui.QInputDialog.getText(self, "Register Handle", "Enter the password, a space, and then the email \nyou wish to associate with this handle:")
         if ok:
             self.sendMessage.emit("REGISTER %s" % (password) , "nickServ")
     @QtCore.pyqtSlot()
