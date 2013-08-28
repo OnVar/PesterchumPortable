@@ -16,11 +16,11 @@ Features
 * When 'banned' make impossible to connect using timestamp banned under
 * Auto download/install updates via Windows installer
 * Turn memo notifications on/off from right-click menu on memos (Idea: lostGash)
-* Use web connection to send offline messages in email-like fashion (Idea: ghostDunk) (MemoServ? -AratnitY)
+* Use web connection to send offline messages in email-like fashion (Idea: ghostDunk)
 * Use web connection to save profiles (Idea: ghostDunk)
-* Better NickServ registering (Added a nemu option under HELP just for the puropse.) (Therefore I'm considering this one checked off)
+* Better NickServ registering
 * Spectation notices (Idea: lexicalNuance) (probly WONTFIX)
-* Auto-login Nickserv (Basic Implemation. [brachyonic] Apparently not working though.)
+* Auto-login Nickserv
 * Make toast notifications only on certain chums
 * Local alisas for chums
 * Don't make new windows be all in your face and shit

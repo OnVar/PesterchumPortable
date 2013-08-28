@@ -101,7 +101,7 @@ class userConfig(object):
         self.config = json.load(fp)
         fp.close()
         if self.config.has_key("defaultprofile"):
-            self.userprofile = userProfile(self.config["defaultprofile"])
+            self.userProfile = userProfile(self.config["defaultprofile"])
         else:
             self.userprofile = None
 

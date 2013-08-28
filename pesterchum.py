@@ -986,13 +986,14 @@ class PesterWindow(MovingWindow):
         MovingWindow.__init__(self, parent,
                               (QtCore.Qt.CustomizeWindowHint |
                                QtCore.Qt.FramelessWindowHint))
+        self.AutojoinDone = False
         self.convos = CaseInsensitiveDict()
         self.memos = CaseInsensitiveDict()
         self.tabconvo = None
         self.tabmemo = None
         if "advanced" in options:
               self.advanced = options["advanced"]
-        else: self.advanced = False
+        else: self.advanced = False #CAN'T TOUCH THIS
         if "server" in options:
             self.serverOverride = options["server"]
         if "port" in options:
@@ -1130,9 +1131,9 @@ class PesterWindow(MovingWindow):
         self.nickServAction = QtGui.QAction(self.theme["main/menus/help/nickserv"], self)
         self.connect(self.nickServAction, QtCore.SIGNAL('triggered()'),
                      self, QtCore.SLOT('loadNickServ()'))
-        self.registerAction = QtGui.QAction(self.theme["main/menus/help/register"], self)
-	    self.connect(self.registerAction, QtCore.SIGNAL('triggered()'),
-		             self, QtCore.SLOT('loadRegister()'))             
+	self.registerAction = QtGui.QAction(self.theme["main/menus/help/register"], self)
+	self.connect(self.registerAction, QtCore.SIGNAL('triggered()'),
+		     self, QtCore.SLOT('loadRegister()'))
         self.chanServAction = QtGui.QAction(self.theme["main/menus/help/chanserv"], self)
         self.connect(self.chanServAction, QtCore.SIGNAL('triggered()'),
                      self, QtCore.SLOT('loadChanServ()'))
@@ -1148,7 +1149,7 @@ class PesterWindow(MovingWindow):
         self.helpmenu.addAction(self.botAction)
         self.helpmenu.addAction(self.chanServAction)
         self.helpmenu.addAction(self.nickServAction)
-        self.helpmenu.addAction(self.registerAction)
+	self.helpmenu.addAction(self.registerAction)
         self.helpmenu.addAction(self.aboutAction)
         self.helpmenu.addAction(self.reportBugAction)
 
@@ -1225,6 +1226,8 @@ class PesterWindow(MovingWindow):
                 self, QtCore.SLOT('checkPing()'))
         self.lastping = int(time())
         self.pingtimer.start(1000*90)
+
+
 
     @QtCore.pyqtSlot()
     def mspacheck(self):
@@ -1555,7 +1558,7 @@ class PesterWindow(MovingWindow):
         self.botAction.setText(self.theme["main/menus/help/calsprite"])
         self.chanServAction.setText(self.theme["main/menus/help/chanserv"])
         self.nickServAction.setText(self.theme["main/menus/help/nickserv"])
-        self.registerAction.setText(self.theme["main/menus/help/register"])
+	self.registerAction.setText(self.theme["main/menus/help/register"])
         self.helpmenu.setTitle(self.theme["main/menus/help/_name"])
 
         # moods
@@ -1711,11 +1714,23 @@ class PesterWindow(MovingWindow):
         else:
             self.waitingMessages.answerMessage()
 
+    def DoAutoIdentify(self):
+        if self.config.userProfile.userprofile.get("AutoIdentify",False):
+            self.sendMessage.emit("identify " + self.config.userProfile.userprofile.get("NickservPassword",""), "nickserv")
+
     @QtCore.pyqtSlot()
     def connected(self):
         if self.loadingscreen:
             self.loadingscreen.done(QtGui.QDialog.Accepted)
         self.loadingscreen = None
+
+        self.DoAutoIdentify()
+        
+        if not self.AutojoinDone:
+            self.AutojoinDone = True
+            for MemoName in self.config.config.get("AutojoinMemos",[]):
+                self.newMemo("#" + MemoName,"i")
+
     @QtCore.pyqtSlot()
     def blockSelectedChum(self):
         curChumListing = self.chumList.currentItem()
@@ -2392,14 +2407,14 @@ class PesterWindow(MovingWindow):
             if opvmesssetting != curopvmess:
                 self.config.set('opvMessages', opvmesssetting)
             # animated smiles
-            if ostools.isOSXBundle():
-                animatesetting = False;
-            else:
-                animatesetting = self.optionmenu.animationscheck.isChecked()
-            curanimate = self.config.animations()
-            if animatesetting != curanimate:
-                self.config.set('animations', animatesetting)
-                self.animationSetting.emit(animatesetting)
+            #if ostools.isOSXBundle():
+            #    animatesetting = False;
+            #else:
+            #    animatesetting = self.optionmenu.animationscheck.isChecked()
+            #curanimate = self.config.animations()
+            #if animatesetting != curanimate:
+            #    self.config.set('animations', animatesetting)
+            #    self.animationSetting.emit(animatesetting)
             # update checked
             updatechecksetting = self.optionmenu.updateBox.currentIndex()
             curupdatecheck = self.config.checkForUpdates()
@@ -2454,6 +2469,7 @@ class PesterWindow(MovingWindow):
                 newmodes = self.optionmenu.modechange.text()
                 if newmodes:
                     self.setChannelMode.emit(self.profile().handle, newmodes, "")
+            self.optionmenu.ConnectionPanel.SaveOptions() #yeah this is bad design but it's so much cleaner than what's currently goin on here
         except Exception, e:
             logging.error(e)
         finally:
@@ -2600,12 +2616,12 @@ class PesterWindow(MovingWindow):
         self.newConversation("nickServ")
     @QtCore.pyqtSlot()
     def loadRegister(self):
-        (password, ok) = QtGui.QInputDialog.getText(self, "Register Handle", "Enter the password, a space and then the email \nyou wish to associate with this handle:")
+        (password, ok) = QtGui.QInputDialog.getText(self, "Register Handle", "Enter the password, a space, and then the email \nyou wish to associate with this handle:")
         if ok:
             self.sendMessage.emit("REGISTER %s" % (password) , "nickServ")
     @QtCore.pyqtSlot()
     def launchHelp(self):
-        QtGui.QDesktopServices.openUrl(QtCore.QUrl("http://www.mspaforums.com/showthread.php?43922-PESTERCHUM-3-41-Updated-Pesterchum!-New-Thread!/", QtCore.QUrl.TolerantMode))
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl("http://nova.xzibition.com/~illuminatedwax/help.html", QtCore.QUrl.TolerantMode))
     @QtCore.pyqtSlot()
     def reportBug(self):
         if hasattr(self, 'bugreportwindow') and self.bugreportwindow:
@@ -2628,6 +2644,7 @@ class PesterWindow(MovingWindow):
     @QtCore.pyqtSlot(QtCore.QString)
     def myHandleChanged(self, handle):
         if self.profile().handle == handle:
+            self.DoAutoIdentify()
             return
         else:
             self.nickCollision(self.profile().handle, handle)
@@ -2707,6 +2724,8 @@ class MainProgram(QtCore.QObject):
         self.app.setApplicationName("Pesterchum 3.14")
 
         options = self.oppts(sys.argv[1:])
+
+        self.AutojoinDone = False
 
         if pygame and pygame.mixer:
             # we could set the frequency higher but i love how cheesy it sounds
@@ -2820,12 +2839,11 @@ class MainProgram(QtCore.QObject):
         self.trayicon.show()
         if self.widget.config.trayMessage():
             self.trayicon.showMessage("Pesterchum", "Pesterchum is still running in the system tray.\n\
-Right click to close it.\n\
-Click this message to never see this again.")
+Right click to close it.")
 
     @QtCore.pyqtSlot()
     def trayMessageClick(self):
-        self.widget.config.set('traymsg', False)
+        self.widget.config.set('traymsg', True)
 
     widget2irc = [('sendMessage(QString, QString)',
                    'sendMessage(QString, QString)'),
@@ -2976,6 +2994,7 @@ Click this message to never see this again.")
     @QtCore.pyqtSlot()
     def connected(self):
         self.attempts = 0
+
     @QtCore.pyqtSlot()
     def tryAgain(self):
         if not self.reconnectok:

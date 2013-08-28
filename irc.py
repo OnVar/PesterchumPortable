@@ -325,6 +325,9 @@ class PesterIRC(QtCore.QThread):
     quirkDisable = QtCore.pyqtSignal(QtCore.QString, QtCore.QString, QtCore.QString)
 
 class PesterHandler(DefaultCommandHandler):
+    def __init__(self,client):
+        DefaultCommandHandler.__init__(self,client)
+        self.AutojoinDone = False
     def notice(self, nick, chan, msg):
         try:
             msg = msg.decode('utf-8')

@@ -1,5 +1,6 @@
 from PyQt4 import QtGui, QtCore
 import re, ostools
+import GUI.Options.Panels.Connection
 
 from os import remove
 from generic import RightClickList, RightClickTree, MultiTextDialog
@@ -806,11 +807,11 @@ class PesterChooseProfile(QtGui.QDialog):
         else:
             self.profileBox = None
 
-        #self.defaultcheck = QtGui.QCheckBox(self)
-        #self.defaultlabel = QtGui.QLabel("Set This Profile As Default", self)
+        self.defaultcheck = QtGui.QCheckBox(self)
+        self.defaultlabel = QtGui.QLabel("Set This Profile As Default", self)
         layout_2 = QtGui.QHBoxLayout()
-        #layout_2.addWidget(self.defaultlabel)
-        #layout_2.addWidget(self.defaultcheck)
+        layout_2.addWidget(self.defaultlabel)
+        layout_2.addWidget(self.defaultcheck)
 
         self.ok = QtGui.QPushButton("OK", self)
         self.ok.setDefault(True)
@@ -1001,7 +1002,7 @@ class PesterOptions(QtGui.QDialog):
         self.tabs = QtGui.QButtonGroup(self)
         self.connect(self.tabs, QtCore.SIGNAL('buttonClicked(int)'),
                      self, QtCore.SLOT('changePage(int)'))
-        tabNames = ["Chum List", "Conversations", "Interface", "Sound", "Notifications", "Logging", "Idle/Updates", "Theme"]
+        tabNames = ["Chum List", "Conversations", "Interface", "Sound", "Notifications", "Logging", "Idle/Updates", "Theme", "Connection"]
         if parent.advanced: tabNames.append("Advanced")
         for t in tabNames:
             button = QtGui.QPushButton(t)
@@ -1013,7 +1014,7 @@ class PesterOptions(QtGui.QDialog):
 
         self.bandwidthcheck = QtGui.QCheckBox("Low Bandwidth", self)
         if self.config.lowBandwidth():
-            self.bandwidthcheck.setChecked(False)
+            self.bandwidthcheck.setChecked(True)
         bandwidthLabel = QtGui.QLabel("(Stops you for receiving the flood of MOODS,\n"
                                       " though stops chumlist from working properly)")
         font = bandwidthLabel.font()
@@ -1088,14 +1089,14 @@ class PesterOptions(QtGui.QDialog):
         if self.config.opvoiceMessages():
             self.memomessagecheck.setChecked(True)
 
-        if not ostools.isOSXBundle():
-            self.animationscheck = QtGui.QCheckBox("Use animated smilies", self)
-            if self.config.animations():
-                self.animationscheck.setChecked(False)
-            animateLabel = QtGui.QLabel("(Disable if you leave chats open for LOOOONG periods of time)")
-            font = animateLabel.font()
-            font.setPointSize(8)
-            animateLabel.setFont(font)
+        #if not ostools.isOSXBundle():
+            #self.animationscheck = QtGui.QCheckBox("Use animated smilies", self)
+            #if self.config.animations():
+                #self.animationscheck.setChecked(False)
+            #animateLabel = QtGui.QLabel("(Disable if you leave chats open for LOOOONG periods of time)")
+            #font = animateLabel.font()
+            #font.setPointSize(8)
+            #animateLabel.setFont(font)
 
         self.userlinkscheck = QtGui.QCheckBox("Disable #Memo and @User Links", self)
         self.userlinkscheck.setChecked(self.config.disableUserLinks())
@@ -1144,16 +1145,16 @@ class PesterOptions(QtGui.QDialog):
         layout_5.addWidget(self.idleBox)
 
         self.updateBox = QtGui.QComboBox(self)
-        #self.updateBox.addItem("Once a Day")
-        #self.updateBox.addItem("Once a Week")
-        #self.updateBox.addItem("Only on Start")
-        #self.updateBox.addItem("Never")
-        #check = self.config.checkForUpdates()
-        #if check >= 0 and check < self.updateBox.count():
-            #self.updateBox.setCurrentIndex(check)
+        self.updateBox.addItem("Once a Day")
+        self.updateBox.addItem("Once a Week")
+        self.updateBox.addItem("Only on Start")
+        self.updateBox.addItem("Never")
+        check = self.config.checkForUpdates()
+        if check >= 0 and check < self.updateBox.count():
+            self.updateBox.setCurrentIndex(check)
         layout_6 = QtGui.QHBoxLayout()
-        #layout_6.addWidget(QtGui.QLabel("Check for\nPesterchum Updates:"))
-        #layout_6.addWidget(self.updateBox)
+        layout_6.addWidget(QtGui.QLabel("Check for\nPesterchum Updates:"))
+        layout_6.addWidget(self.updateBox)
 
         #if not ostools.isOSXLeopard():
             #self.mspaCheck = QtGui.QCheckBox("Check for MSPA Updates", self)
@@ -1271,9 +1272,9 @@ class PesterOptions(QtGui.QDialog):
         layout_chat.addWidget(self.timestampBox)
         layout_chat.addWidget(self.secondscheck)
         layout_chat.addWidget(self.memomessagecheck)
-        if not ostools.isOSXBundle():
-            layout_chat.addWidget(self.animationscheck)
-            layout_chat.addWidget(animateLabel)
+        #if not ostools.isOSXBundle():
+            #layout_chat.addWidget(self.animationscheck)
+            #layout_chat.addWidget(animateLabel)
         layout_chat.addWidget(self.randomscheck)
         # Re-enable these when it's possible to disable User and Memo links
         #layout_chat.addWidget(hr)
@@ -1351,8 +1352,8 @@ class PesterOptions(QtGui.QDialog):
         layout_idle.setAlignment(QtCore.Qt.AlignTop)
         layout_idle.addLayout(layout_5)
         layout_idle.addLayout(layout_6)
-        if not ostools.isOSXLeopard():
-            layout_idle.addWidget(self.mspaCheck)
+        #if not ostools.isOSXLeopard():
+            #layout_idle.addWidget(self.mspaCheck)
         self.pages.addWidget(widget)
 
         # Theme
@@ -1373,6 +1374,9 @@ class PesterOptions(QtGui.QDialog):
             layout_advanced.addWidget(QtGui.QLabel("Current User Mode: %s" % parent.modes))
             layout_advanced.addLayout(layout_change)
             self.pages.addWidget(widget)
+
+        self.ConnectionPanel = GUI.Options.Panels.Connection.Panel(self.config)
+        self.pages.addWidget(self.ConnectionPanel)
 
         layout_0 = QtGui.QVBoxLayout()
         layout_1 = QtGui.QHBoxLayout()
@@ -1709,7 +1713,7 @@ class AboutPesterchum(QtGui.QDialog):
         self.mainwindow = parent
         self.setStyleSheet(self.mainwindow.theme["main/defaultwindow/style"])
 
-        self.title = QtGui.QLabel("P3ST3RCHUM PORT4BL3 V. %s" % (_pcVersion))
+        self.title = QtGui.QLabel("P3ST3RCHUM V. %s" % (_pcVersion))
         self.credits = QtGui.QLabel("Programming by:\n\
   illuminatedwax (ghostDunk)\n\
   Kiooeht (evacipatedBox)\n\
@@ -1717,8 +1721,6 @@ class AboutPesterchum(QtGui.QDialog):
   oakwhiz\n\
   alGore\n\
   Cerxi (binaryCabalist)\n\
-\n\
-Portable Version by:\n  AratnitY (carcinoGenotoxin)\n\
 \n\
 Art by:\n\
   Grimlive (aquaMarinist)\n\

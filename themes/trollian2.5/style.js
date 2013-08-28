@@ -13,6 +13,9 @@
                 "loc": [260, 12]},
   "sounds": { "alertsound": "$path/alarm.wav",
 			  "ceasesound": "$path/cease.wav" },
+  "menus": {"help": { "_name": "HELP",
+		     "register": "REGISTER TROLLTAG" }
+	   },
   "defaultwindow": { "style": "background: #e5000f; font-family:'Arial';font:bold;selection-background-color:#919191; " },
   "chums": { "style": "border:2px solid #ffa4a4; background-color: black;color: white;font: bold;font-size:14px;font-family: 'Arial';selection-background-color:#646464; ",
              "moods": { 
