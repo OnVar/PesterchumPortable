@@ -1721,6 +1721,11 @@ class AboutPesterchum(QtGui.QDialog):
   oakwhiz\n\
   alGore\n\
   Cerxi (binaryCabalist)\n\
+  brachyonic\n\
+  AratnitY (carcinoGenotoxin)\n\
+\n\
+Portable Version by\n\
+  AratnitY (carcinoGenotoxin)\n\
 \n\
 Art by:\n\
   Grimlive (aquaMarinist)\n\

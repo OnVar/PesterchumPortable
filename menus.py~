@@ -1089,10 +1089,10 @@ class PesterOptions(QtGui.QDialog):
         if self.config.opvoiceMessages():
             self.memomessagecheck.setChecked(True)
 
-        if not ostools.isOSXBundle():
+        #if not ostools.isOSXBundle():
             #self.animationscheck = QtGui.QCheckBox("Use animated smilies", self)
             #if self.config.animations():
-                self.animationscheck.setChecked(False)
+                #self.animationscheck.setChecked(False)
             #animateLabel = QtGui.QLabel("(Disable if you leave chats open for LOOOONG periods of time)")
             #font = animateLabel.font()
             #font.setPointSize(8)
@@ -1721,7 +1721,11 @@ class AboutPesterchum(QtGui.QDialog):
   oakwhiz\n\
   alGore\n\
   Cerxi (binaryCabalist)\n\
+  brachyonic\n\
+  AratnitY (carcinoGenotoxin)\n\
 \n\
+Portable Version by\n\
+  AratnitY (carcinoGenotoxin)\n\
 Art by:\n\
   Grimlive (aquaMarinist)\n\
   Cerxi (binaryCabalist)\n\
