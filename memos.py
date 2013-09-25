@@ -388,7 +388,11 @@ class PesterMemo(PesterConvo):
         self.quirkDisableAction = QtGui.QAction(self.mainwindow.theme["main/menus/rclickchumlist/quirkkill"], self)
         self.connect(self.quirkDisableAction, QtCore.SIGNAL('triggered()'),
                      self, QtCore.SLOT('killQuirkUser()'))
+	self.pesterUserAction = QtGui.QAction(self.mainwindow.theme["main/menus/rclickchumlist/pester"], self)
+	self.connect(self.pesterUserAction, QtCore.SIGNAL('triggered()'),
+		     self, QtCore.SLOT('pesterUserFromMenu()'))
         self.userlist.optionsMenu.addAction(self.addchumAction)
+	self.userlist.optionsMenu.addAction(self.pesterUserAction)
         # ban & op list added if we are op
 
         self.optionsMenu = QtGui.QMenu(self)
@@ -583,6 +587,7 @@ class PesterMemo(PesterConvo):
         self.opAction.setText(theme["main/menus/rclickchumlist/opuser"])
         self.voiceAction.setText(theme["main/menus/rclickchumlist/voiceuser"])
         self.quirkDisableAction.setText(theme["main/menus/rclickchumlist/quirkkill"])
+	self.pesterUserAction.setText(theme["main/menus/rclickchumlist/pester"])
         self.quirksOff.setText(theme["main/menus/rclickchumlist/quirksoff"])
         self.logchum.setText(theme["main/menus/rclickchumlist/viewlog"])
         self.invitechum.setText(theme["main/menus/rclickchumlist/invitechum"])
@@ -659,13 +664,14 @@ class PesterMemo(PesterConvo):
         else:
             color = chumdb.getColor(handle, defaultcolor)
         item.box = (handle == "evacipatedBox")
+	item.aratnity = (handle == "arcaneApothecary")
         item.setTextColor(color)
         item.founder = founder
         item.op = op
         item.halfop = halfop
         item.admin = admin
         item.voice = voice
-        self.umodes = ["box", "founder", "admin", "op", "halfop", "voice"]
+        self.umodes = ["box", "aratnity", "founder", "admin", "op", "halfop", "voice"]
         self.iconCrap(item)
         self.userlist.addItem(item)
         self.sortUsers()
@@ -912,6 +918,8 @@ class PesterMemo(PesterConvo):
             if eval("c."+m):
                 if m == "box":
                     icon = PesterIcon("smilies/box.png")
+		if m == "aratnity":
+                    icon = PesterIcon("smilies/aratnitysleek.png")
                 else:
                     icon = PesterIcon(self.mainwindow.theme["memos/"+m+"/icon"])
                 c.setIcon(icon)
@@ -1192,6 +1200,12 @@ class PesterMemo(PesterConvo):
             return
         currentHandle = unicode(self.userlist.currentItem().text())
         self.mainwindow.killSomeQuirks.emit(self.channel, currentHandle)
+    @QtCore.pyqtSlot()
+    def pesterUserFromMenu(self):
+        if not self.userlist.currentItem():
+            return
+        currentHandle = unicode(self.userlist.currentItem().text())
+        self.mainwindow.newConversation(currentHandle)
 
     def resetSlider(self, time, send=True):
         self.timeinput.setText(delta2txt(time))

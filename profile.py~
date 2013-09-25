@@ -17,7 +17,7 @@ from parsetools import convertTags, addTimeInitial, themeChecker, ThemeException
 _datadir = ostools.getDataDir()
 
 class PesterLog(object):
-    def __init__(self, handle, parent=None):
+    def __init__(self, handle, parent=Advanced):
         global _datadir
         self.parent = parent
         self.handle = handle
@@ -101,7 +101,7 @@ class userConfig(object):
         self.config = json.load(fp)
         fp.close()
         if self.config.has_key("defaultprofile"):
-            self.userprofile = userProfile(self.config["defaultprofile"])
+            self.userProfile = userProfile(self.config["defaultprofile"])
         else:
             self.userprofile = None
 

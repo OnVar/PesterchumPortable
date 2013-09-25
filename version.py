@@ -26,12 +26,12 @@ elif OS_TYPE == "darwin":
     OS_TYPE = "mac"
 
 _pcMajor = "3.41"
-_pcMinor = "3"
+_pcMinor = "4"
 _pcStatus = "" # A  = alpha
                 # B  = beta
                 # RC = release candidate
                 # None = public release
-_pcRevision = ""
+_pcRevision = "0"
 _pcVersion = ""
 
 def pcVerCalc():
@@ -39,7 +39,7 @@ def pcVerCalc():
     if _pcStatus:
         _pcVersion = "%s.%s-%s%s" % (_pcMajor, _pcMinor, _pcStatus, _pcRevision)
     else:
-        _pcVersion = "%s.%s.%s" % (_pcMajor, _pcMinor, _pcRevision)
+        _pcVersion = "%s.%s" % (_pcMajor, _pcMinor)
 
 def lexVersion(short=False):
     if not _pcStatus:

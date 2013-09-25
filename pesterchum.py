@@ -1420,7 +1420,8 @@ class PesterWindow(MovingWindow):
         self.connect(convoWindow, QtCore.SIGNAL('windowClosed(QString)'),
                      self, QtCore.SLOT('closeConvo(QString)'))
         self.convos[chum.handle] = convoWindow
-        if unicode(chum.handle).upper() == "CHANSERV" or \
+        if unicode(chum.handle).upper() == "IRC.MINDFANG.ORG" or \
+	   unicode(chum.handle).upper() == "CHANSERV" or \
            unicode(chum.handle).upper() == "NICKSERV" or \
            unicode(chum.handle).upper() == "MEMOSERV" or \
            unicode(chum.handle).upper() == "OPERSERV" or \
@@ -1481,7 +1482,7 @@ class PesterWindow(MovingWindow):
             self.setChannelMode.emit(channel, "+s", "")
         if invite:
             self.setChannelMode.emit(channel, "+i", "")
-        memoWindow.sendTimeInfo()
+        #memoWindow.sendTimeInfo()
         memoWindow.show()
 
     def addChum(self, chum):
@@ -2621,7 +2622,7 @@ class PesterWindow(MovingWindow):
             self.sendMessage.emit("REGISTER %s" % (password) , "nickServ")
     @QtCore.pyqtSlot()
     def launchHelp(self):
-        QtGui.QDesktopServices.openUrl(QtCore.QUrl("http://nova.xzibition.com/~illuminatedwax/help.html", QtCore.QUrl.TolerantMode))
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl("http://mspaforums.com/showthread.php?43922-PESTERCHUM-3-41-Updated-Pesterchum%21-New-Thread%21", QtCore.QUrl.TolerantMode))
     @QtCore.pyqtSlot()
     def reportBug(self):
         if hasattr(self, 'bugreportwindow') and self.bugreportwindow:

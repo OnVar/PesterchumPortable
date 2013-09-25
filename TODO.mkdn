@@ -18,15 +18,13 @@ Features
 * Turn memo notifications on/off from right-click menu on memos (Idea: lostGash)
 * Use web connection to send offline messages in email-like fashion (Idea: ghostDunk)
 * Use web connection to save profiles (Idea: ghostDunk)
-* Better NickServ registering (Done. ~AratnitY)
+* Better NickServ registering
 * Spectation notices (Idea: lexicalNuance) (probly WONTFIX)
-* Auto-login Nickserv (Also done ~AratnitY)
+* Auto-login Nickserv
 * Make toast notifications only on certain chums
 * Local alisas for chums
 * Don't make new windows be all in your face and shit
 * Hide offline friends per group
-* Better handling of MOODS (Idea: ghostDunk)
-* Pester handle directly from the userlist in a memo (Idea: AratnitY Implementation: OnVar)
 
 Bugs
 ----
