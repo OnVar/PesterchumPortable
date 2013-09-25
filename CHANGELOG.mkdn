@@ -22,6 +22,10 @@ CHANGELOG
 * FTP and Magnet links - oakwhiz
 * Userlist search - oakwhiz
 * Chanserv in menus - Cerxi [binaryCabalist]
+* Option for handle registration in menus - AratnitY
+* Automatic memo joining upon startup - brachyonic
+* Automatic NickServ/Services identification - brachyonic & AratnitY (They wrote the code. I just made it work. ~AratnitY)
+* Pester handle directly from the userlist in a memo - OnVar
 * Bug fixes
     * Don't require pygame (it's kind of optional, you just don't get sound) - Kiooeht [evacipatedBox]
     * Allow add chum dialog to open after adding an existing chum - Kiooeht [evacipatedBox]
