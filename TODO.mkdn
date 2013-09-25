@@ -26,7 +26,7 @@ Features
 * Don't make new windows be all in your face and shit
 * Hide offline friends per group
 * Better handling of MOODS (Idea: ghostDunk)
-* Pester directly from the userlist in a memo (Idea: AratnitY)
+* Pester handle directly from the userlist in a memo (Idea: AratnitY) Implementation: OnVar
 
 Bugs
 ----
